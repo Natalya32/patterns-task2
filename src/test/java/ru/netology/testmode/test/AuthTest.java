@@ -38,8 +38,8 @@ class AuthTest {
     @DisplayName("Should get error message if login with not registered user")
     void shouldGetErrorIfNotRegisteredUser() {
         var notRegisteredUser = getUser("active");
-        $("[name=\"login\"]").setValue(getUser("active").getLogin());
-        $("[name=\"password\"]").setValue(getUser("active").getPassword());
+        $("[name=\"login\"]").setValue(notRegisteredUser.getLogin());
+        $("[name=\"password\"]").setValue(notRegisteredUser.getPassword());
         $("[data-test-id=\"action-login\"]").click();
         $(withText("Неверно указан логин или пароль")).shouldBe(visible);
     }
@@ -48,10 +48,10 @@ class AuthTest {
     @DisplayName("Should get error message if login with blocked registered user")
     void shouldGetErrorIfBlockedUser() {
         var blockedUser = getRegisteredUser("blocked");
-        $("[name=\"login\"]").setValue(getRegisteredUser("blocked").getLogin());
-        $("[name=\"password\"]").setValue(getRegisteredUser("blocked").getPassword());
+        $("[name=\"login\"]").setValue(blockedUser.getLogin());
+        $("[name=\"password\"]").setValue(blockedUser.getPassword());
         $("[data-test-id=\"action-login\"]").click();
-        $(withText("Неверно указан логин или пароль")).shouldBe(visible);
+        $(withText("Пользователь заблокирован")).shouldBe(visible);
     }
 
     @Test
